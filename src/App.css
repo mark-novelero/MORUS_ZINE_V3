@@ -1,0 +1,26 @@
+@font-face{
+  font-family: 'Title';
+  src: url('./fonts/SairaStencilOne-Regular.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: 'Sub-Title';
+  src: url('./fonts/DMMono-Regular.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: 'sub';
+  src: url('./fonts/LondrinaShadow-Regular.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: 'alt';
+  src: url('./fonts/StalinistOne-Regular.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: 'alt-two';
+  src: url('./fonts/Rubik80sFade-Regular.ttf') format('truetype');
+}
+
+

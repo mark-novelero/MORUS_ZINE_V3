@@ -1,0 +1,18 @@
+<button className='close-overlay' onClick={() => setSelectedZine(null)}>
+                                        X
+                                    </button>
+
+
+
+<p className="overlay-data"><strong>Author:</strong> {selectedZine.Creator || 'Unknown'}</p>
+<p className="overlay-data"><strong>Content:</strong><br/> {selectedZine["Content Description"] || 'Unknown'}</p>
+<p className="overlay-data"><strong>Identifier:</strong> {selectedZine.Identifier || 'Unknown'}</p>
+<p className="overlay-data"><strong>Year:</strong> {selectedZine["Date of Publication"] || 'Unknown'}</p>
+<p className="overlay-data"><strong>Subject:</strong> {selectedZine["Subject"] || 'Unknown'}</p>
+                                        <p className="overlay-data"><strong>Language:</strong> {selectedZine["Language"] || 'Unknown'}</p>
+                                        <p className="overlay-data"><strong>Coverage:</strong> {selectedZine["Coverage"] || 'Unknown'}</p>
+                                        <p className="overlay-data"><strong>Contributors:</strong> {selectedZine["Contributor(s)"] || 'Unknown'}</p>
+                                        <p className="overlay-data"><strong>Publisher:</strong> {selectedZine["Publisher(s)"] || 'Unknown'}</p>
+                                        <p className="overlay-data"><strong>Place of Publication:</strong> {selectedZine["Place of Publication"] || 'Unknown'}</p>
+                                        <p className="overlay-data"><strong>Physical Description:</strong> {selectedZine["Physical Description"] || 'Unknown'}</p>
+                                        <p className="overlay-data"><strong>Freedoms and Restrictions:</strong> {selectedZine["Freedoms and Restrictions"] || 'Unknown'}</p>

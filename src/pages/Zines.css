@@ -1,0 +1,2223 @@
+.zines-div {
+        padding: 0;
+        width: 100%;
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zines-title {
+        font-size: 15vw;
+        line-height: 16vw;
+        font-weight: bold;
+        color: #ffffff;
+        font-family: 'Title';
+        letter-spacing: 4px;
+        margin-left: 5%;
+        margin-top: 5%;
+        position: relative;
+        z-index: 1;
+        text-transform: uppercase;
+    }
+    .zine-nav-container{
+        margin-top: 0px;
+        margin-left: 5%;
+    }
+    .zine-page-num{
+        position: fixed;
+        right: 3%;
+        z-index: 0;
+        top: 29%;
+        color: rgba(52, 52, 52, 0.384);
+        font-family: 'title';
+        font-size: 15vw;
+        line-height: 15vw;
+    }
+    .zine-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 255, 255, 0.85);
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zine-container {
+        position: relative;
+        z-index: 1;
+    }
+    /* Container for the grid */
+    .zine-grid {
+        display: grid;
+        /* This creates exactly 4 equal columns */
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 8vw 5vw; /* Space between grid items */
+        padding-right: 4%;
+        padding-left: 2%;
+        padding-top: 15%;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
+
+    /* Individual Card Style */
+    .zine-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centers title relative to image */
+        text-align: center;
+    }
+
+    /* Image Wrapper (optional, good for hover effects later) */
+    .zine-image-wrapper {
+        width: 100%;
+        margin-bottom: 8%;
+        overflow: hidden; /* clean edges if you add border-radius */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        transition: transform 0.2s ease;
+    }
+
+    /* The Image itself */
+    .zine-img {
+        width: 100%;
+        max-width: 500px;
+        height: auto; /* Maintains aspect ratio */
+        display: block; /* Removes weird bottom whitespace in some browsers */
+        aspect-ratio: 1 / 1.4; /* Optional: Forces uniform height if images vary wildly */
+        object-fit: contain; /* Ensures image fills the aspect ratio without stretching */
+        margin-bottom: 3%;
+    }
+
+    /* Title Styling */
+    .zine-card-title {
+        font-size: 4vw;
+        line-height: 6vw;
+        margin: 0;
+        color: #ffffff; /* Dark grey, change to match your theme */
+        font-weight: 600;
+        text-transform: uppercase;
+        font-family: 'Sub-title';
+        width: 100%;
+    }
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        padding: 7% 0px 20% 0;
+    }
+    .prev-next {
+        background: transparent;
+        border: 1px solid #ffffff00;;
+        color: #ffffff;
+        padding: 0px 0px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        font-family: 'Sub-title';
+        text-transform: uppercase;
+        font-size: 6vw;
+        margin: 0 8% 0 8%;
+        letter-spacing: 1px;
+    }
+    /* 1. Add position: relative to your EXISTING .page-btn class 
+    so the line knows where to sit. */
+    .page-btn {
+        position: relative; 
+        font-size: 3.5vw;
+        margin: 0 1%;
+        background-color: #ffffff;
+        border: none;
+        padding: 2vw 2vw; 
+        cursor: pointer;
+        display: none;
+    }
+
+    /* 2. Create the floating line for the active state */
+    .page-btn.active::after {
+        content: "";
+        position: absolute;
+        
+        /* Dimensions of the line */
+        height: 8px;       /* Thickness of the line */
+        width: 100%;       /* Matches the width of the number */
+        background: rgb(255, 255, 255); /* The color of the line */
+
+        /* Positioning - The Gap */
+        left: 0;
+        bottom: -20px;     /* CHANGE THIS VALUE to increase/decrease the gap */
+    }
+    /* Keep your existing .filter-container exactly as is */
+    .filter-container {
+        display: none;
+        justify-content: left;
+        align-items: start;
+        position: absolute;
+        z-index: 2; 
+        top: 34%;
+        right: 8.25%;
+    }
+
+    /* Add this to handle the scrolling of the dropdown list */
+    .subject-menu-scroll {
+        max-height: 310px;  /* Limits the height */
+        overflow-y: auto;   /* Makes it scrollable vertically */
+        overflow-x: hidden; /* Hides horizontal scrollbar */
+        padding-left:0px;
+    }
+
+    /* Optional: Styles the scrollbar to look cleaner (Webkit browsers) */
+    .subject-menu-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+    .subject-menu-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    .subject-menu-scroll::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 3px;
+    }
+    .filter-group{
+        display: flex;
+    }
+    .filter-label{
+        color: white;
+        margin-right: 10px;
+        font-family: 'Sub-title';
+        font-size: 14px;
+    }
+    .custom-dropdown-wrapper{
+        width: 155px;
+        background-color: rgba(0, 0, 0, 0);
+        margin-right: 20px;
+    }
+    .sort-trigger-btn{
+        width: 155px;
+        font-size: 14px; 
+        padding-left: 3px;
+        background-color: rgba(0, 0, 0, 0);
+        color: white;
+        font-family: 'Sub-title';
+        display: flex;
+        align-items: left;
+        border-bottom: 1px solid white;
+        border-top: none;
+        border-left: 0px solid white;
+        border-right: none;
+        cursor: pointer;
+    }
+    .dropdown-item{
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 14px; 
+        line-height: 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        background-color: rgba(0, 0, 0, 0.921);
+        cursor: pointer;
+    }
+    .reset-btn{
+        background-color: transparent;
+        border: none;
+        color: #58d8f8;
+        font-family: 'title';
+        font-size: 17px;
+        padding: 0px 15px;
+        cursor: pointer;
+        position: absolute;
+        top: -25px;
+        right: 513px;
+        z-index: 2;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .reset-btn:hover{
+        color:  #58d8f8;
+    }
+    .detail-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #000000eb;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        padding: 0 5% 0 5%;
+    }
+    .detail-overlay h2 {
+        color: white;
+        font-size: 24px;
+        text-align: center;
+    }
+    .zine-details-card{
+        width: auto;
+        height: 85vh;
+        display: flex;
+        flex-direction: column;
+        border: #ffffff 1px solid;
+        margin-top: 10px;
+    }
+    .overlay-img{
+        height: 100%;
+        object-fit: cover;
+        max-width: 450px;
+        display: none;
+    }
+    .zine-meta-container{
+        background-color: rgb(0, 0, 0);
+        width: auto;
+        height: 100%;
+        padding: 6% 6% 2% 6%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .meta-card{
+        
+    }
+    .overlay-title{
+        color: white;
+        font-size: 4.5vw;
+        width: 100%;
+        text-align: center;
+        font-family: 'sub-Title';
+        letter-spacing: .75px;
+        margin-bottom: 5%;
+    }
+    .overlay-data{
+        color: white;
+        font-size: 3.5vw;
+        width: 100%;
+        font-family: 'Sub-title';
+        letter-spacing: .5px;
+        margin-bottom: 2.5%;
+    }
+    strong{
+        color: #58d8f8;
+        margin-bottom: 2px;
+    }
+    .read-btn {
+        background-color: transparent;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+        border-left: none ;
+        border-right: none;
+        color: #58d8f8;;
+        font-family: 'Sub-title';
+        font-size: 4vw;
+        padding: 2.5% 3%;
+        cursor: pointer;
+        transition: all .5s ease-out;
+        margin-top: 7%;
+        letter-spacing: .5vw;
+        text-transform: uppercase;
+    }
+    .read-btn:hover {
+        color: white;
+        border-top: 1px solid #58d8f8;
+        border-bottom: 1px solid #58d8f8;
+    }
+    .close-overlay {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        background-color: transparent;
+        border: 1px solid #ffffff;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 4vw;
+        padding: 4px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: .5px;
+    }
+    .overlay-nav-bar{
+        margin-top: 7%;
+    }
+    .nav-arrow-btn{
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 4.5vw;
+        padding: 1vw 7vw;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .nav-counter{
+        margin-left: 0%;
+        margin-right: 0%;
+        font-family: 'Sub-title';
+        font-size: 4.5vw;
+        color: white;
+    }
+    .arrows{
+        font-size: 5vw;
+    }
+
+@media (min-width: 700px){
+    .zines-div {
+        padding: 0px 0px 0 0px;
+        width: 100%;
+        border-radius: 3%;
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zines-title {
+        font-size: 8vw;
+        line-height: 9vw;
+        font-weight: bold;
+        color: #ffffff;
+        font-family: 'Title';
+        letter-spacing: 4px;
+        margin-left: 5%;
+        margin-top: 20px;
+        position: relative;
+        z-index: 1;
+        text-transform: uppercase;
+    }
+    .zine-nav-container{
+        margin-top: 0px;
+        margin-left: 5%;
+    }
+    .zine-page-num{
+        position: fixed;
+        right: 5%;
+        z-index: 0;
+        top: 0px;
+        color: rgba(52, 52, 52, 0.384);
+        font-family: 'title';
+        font-size: 13vw;
+        line-height: 13vw;
+    }
+    .zine-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 255, 255, 0.85);
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zine-container {
+        position: relative;
+        z-index: 1;
+    }
+    /* Container for the grid */
+    .zine-grid {
+        display: grid;
+        /* This creates exactly 4 equal columns */
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 3%; /* Space between grid items */
+        padding-right: 5%;
+        padding-left: 5%;
+        padding-top: 15%;
+        width: 100%;
+        box-sizing: border-box;
+        
+    }
+
+    /* Individual Card Style */
+    .zine-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centers title relative to image */
+        text-align: center;
+    }
+
+    /* Image Wrapper (optional, good for hover effects later) */
+    .zine-image-wrapper {
+        width: 100%;
+        margin-bottom: 3%;
+        overflow: hidden; /* clean edges if you add border-radius */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        transition: transform 0.2s ease;
+    
+    }
+
+    /* The Image itself */
+    .zine-img {
+        width: 100%;
+        max-width: 500px;
+        height: auto; /* Maintains aspect ratio */
+        display: block; /* Removes weird bottom whitespace in some browsers */
+        aspect-ratio: 1 / 1.4; /* Optional: Forces uniform height if images vary wildly */
+        object-fit: contain; /* Ensures image fills the aspect ratio without stretching */
+        margin-bottom: 1%;
+    }
+
+    /* Title Styling */
+    .zine-card-title {
+        font-size: 2.25vw;
+        line-height: 2.5vw;
+        margin: 0;
+        color: #ffffff; /* Dark grey, change to match your theme */
+        font-weight: 600;
+        text-transform: uppercase;
+        font-family: 'Sub-title';
+        width: 100%;
+    }
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        padding: 40px 0px 80px 0;
+    }
+    .prev-next {
+        background: transparent;
+        border: 1px solid #ffffff00;;
+        color: #ffffff;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        font-family: 'Sub-title';
+        text-transform: uppercase;
+        font-size: 3.5vw;
+        margin: 0 20px 0 20px;
+        letter-spacing: 1px;
+    }
+    /* 1. Add position: relative to your EXISTING .page-btn class 
+    so the line knows where to sit. */
+    .page-btn {
+        position: relative; 
+        font-size: 16px;
+        margin: 0 5px;
+        background-color: #ffffff;
+        border: none;
+        padding: 5px 10px; 
+        cursor: pointer;
+        display: flex;
+    }
+
+    /* 2. Create the floating line for the active state */
+    .page-btn.active::after {
+        content: "";
+        position: absolute;
+        
+        /* Dimensions of the line */
+        height: 8px;       /* Thickness of the line */
+        width: 100%;       /* Matches the width of the number */
+        background: rgb(255, 255, 255); /* The color of the line */
+
+        /* Positioning - The Gap */
+        left: 0;
+        bottom: -20px;     /* CHANGE THIS VALUE to increase/decrease the gap */
+    }
+    /* Keep your existing .filter-container exactly as is */
+    .filter-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        align-items: end;
+        position: absolute;
+        z-index: 2; 
+        top: 45%;
+        right: 5%;
+    }
+
+    /* Add this to handle the scrolling of the dropdown list */
+    .subject-menu-scroll {
+        max-height: 30vw;  /* Limits the height */
+        overflow-y: auto;   /* Makes it scrollable vertically */
+        overflow-x: hidden; /* Hides horizontal scrollbar */
+        padding-left:0px;
+        position: absolute;
+    }
+
+    /* Optional: Styles the scrollbar to look cleaner (Webkit browsers) */
+    .subject-menu-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+    .subject-menu-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    .subject-menu-scroll::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 3px;
+    }
+    .filter-group{
+        display: flex;
+    }
+    .filter-label{
+        color: white;
+        margin-right: 10px;
+        font-family: 'Sub-title';
+        font-size: 14px;
+    }
+    .custom-dropdown-wrapper{
+        width: 155px;
+        background-color: rgba(0, 0, 0, 0);
+        margin-right: 20px;
+    }
+    .sort-trigger-btn{
+        width: 155px;
+        font-size: 14px; 
+        padding-left: 3px;
+        background-color: rgba(0, 0, 0, 0);
+        color: white;
+        font-family: 'Sub-title';
+        display: flex;
+        align-items: left;
+        border-bottom: 1px solid white;
+        border-top: none;
+        border-left: 0px solid white;
+        border-right: none;
+        cursor: pointer;
+    }
+    .dropdown-item{
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 14px; 
+        line-height: 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        background-color: rgba(0, 0, 0, 0.921);
+        cursor: pointer;
+    }
+    .reset-btn{
+        background-color: transparent;
+        border: none;
+        color: #58d8f8;
+        font-family: 'title';
+        font-size: 17px;
+        padding: 0px 15px;
+        cursor: pointer;
+        position: absolute;
+        top: -25px;
+        right: 513px;
+        z-index: 2;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .reset-btn:hover{
+        color:  #58d8f8;
+    }
+    .detail-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #000000eb;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        padding: 0 5% 0 5%;
+    }
+    .detail-overlay h2 {
+        color: white;
+        font-size: 24px;
+        text-align: center;
+    }
+    .zine-details-card{
+        width: auto;
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        border: #ffffff 1px solid;
+        margin-top: 10px;
+    }
+    .overlay-img{
+        height: 100%;
+        object-fit: cover;
+        max-width: 450px;
+        display: none;
+    }
+    .zine-meta-container{
+        background-color: rgb(0, 0, 0);
+        width: auto;
+        height: 100%;
+        padding: 5% 6% 5% 6%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .meta-card{
+        
+    }
+    .overlay-title{
+        color: white;
+        font-size: 25px;
+        width: 100%;
+        text-align: center;
+        font-family: 'sub-Title';
+        letter-spacing: .75px;
+        margin-bottom: 30px;
+    }
+    .overlay-data{
+        color: white;
+        font-size: 17px;
+        width: 100%;
+        font-family: 'Sub-title';
+        letter-spacing: .5px;
+        margin-bottom: 10px;
+    }
+    strong{
+        color: #58d8f8;
+        margin-bottom: 2px;
+    }
+    .read-btn {
+        background-color: transparent;
+        border-top: 2px solid white;
+        border-bottom: 2px solid white;
+        border-left: none ;
+        border-right: none;
+        color: #58d8f8;;
+        font-family: 'Sub-title';
+        font-size: 17px;
+        padding: 8px 10px;
+        cursor: pointer;
+        transition: all .5s ease-out;
+        margin-top: 30px;
+        letter-spacing: 1.75px;
+        text-transform: uppercase;
+    }
+    .read-btn:hover {
+        color: white;
+        border-top: 2px solid #58d8f8;
+        border-bottom: 2px solid #58d8f8;
+    }
+    .close-overlay {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: 1px solid #ffffff;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 18px;
+        padding: 4px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: .5px;
+    }
+    .overlay-nav-bar{
+        margin-top: 40px;
+    }
+    .nav-arrow-btn{
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 20px;
+        padding: 6px 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .nav-counter{
+        margin-left: 25px;
+        margin-right: 25px;
+        font-family: 'Sub-title';
+        font-size: 20px;
+        color: white;
+    }
+    .arrows{
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 700px) and (min-height: 800px){
+    .zines-div {
+        padding: 0px 0px 0 0px;
+        width: 100%;
+        border-radius: 5px;
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zines-title {
+        font-size: 60px;
+        line-height: 80px;
+        font-weight: bold;
+        color: #ffffff;
+        font-family: 'Title';
+        letter-spacing: 4px;
+        margin-left: 50px;
+        margin-top: 20px;
+        position: relative;
+        z-index: 1;
+        text-transform: uppercase;
+    }
+    .zine-nav-container{
+        margin-top: -5px;
+        margin-left: 30px;
+    }
+    .zine-page-num{
+        position: fixed;
+        right: 55px;
+        z-index: 0;
+        top: 0px;
+        color: rgba(52, 52, 52, 0.384);
+        font-family: 'title';
+        font-size: 120px;
+        line-height: 140px;
+    }
+    .zine-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 255, 255, 0.85);
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zine-container {
+        position: relative;
+        z-index: 1;
+    }
+    /* Container for the grid */
+    .zine-grid {
+        display: grid;
+        /* This creates exactly 4 equal columns */
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 40px; /* Space between grid items */
+        padding-right: 50px;
+        padding-left: 50px;
+        padding-top: 120px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
+
+    /* Individual Card Style */
+    .zine-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centers title relative to image */
+        text-align: center;
+    }
+
+    /* Image Wrapper (optional, good for hover effects later) */
+    .zine-image-wrapper {
+        width: 100%;
+        margin-bottom: 1rem;
+        overflow: hidden; /* clean edges if you add border-radius */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        transition: transform 0.2s ease;
+    
+    }
+
+    /* The Image itself */
+    .zine-img {
+        width: 100%;
+        max-width: 500px;
+        height: auto; /* Maintains aspect ratio */
+        display: block; /* Removes weird bottom whitespace in some browsers */
+        aspect-ratio: 1 / 1.4; /* Optional: Forces uniform height if images vary wildly */
+        object-fit: contain; /* Ensures image fills the aspect ratio without stretching */
+        margin-bottom: 3px;
+    }
+
+    /* Title Styling */
+    .zine-card-title {
+        font-size: 15px;
+        line-height: 22px;
+        margin: 0;
+        color: #ffffff; /* Dark grey, change to match your theme */
+        font-weight: 600;
+        text-transform: uppercase;
+        font-family: 'Sub-title';
+        width: 100%;
+    }
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        padding: 40px 0px 80px 0;
+    }
+    .prev-next {
+        background: transparent;
+        border: 1px solid #ffffff00;;
+        color: #ffffff;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        font-family: 'Sub-title';
+        text-transform: uppercase;
+        font-size: 22px;
+        margin: 0 20px 0 20px;
+        letter-spacing: 1px;
+    }
+    /* 1. Add position: relative to your EXISTING .page-btn class 
+    so the line knows where to sit. */
+    .page-btn {
+        position: relative; 
+        font-size: 16px;
+        margin: 0 5px;
+        background-color: #ffffff;
+        border: none;
+        padding: 5px 10px; 
+        cursor: pointer;
+    }
+
+    /* 2. Create the floating line for the active state */
+    .page-btn.active::after {
+        content: "";
+        position: absolute;
+        
+        /* Dimensions of the line */
+        height: 8px;       /* Thickness of the line */
+        width: 100%;       /* Matches the width of the number */
+        background: rgb(255, 255, 255); /* The color of the line */
+
+        /* Positioning - The Gap */
+        left: 0;
+        bottom: -20px;     /* CHANGE THIS VALUE to increase/decrease the gap */
+    }
+    /* Keep your existing .filter-container exactly as is */
+    .filter-container {
+        display: flex;
+        justify-content: left;
+        align-items: start;
+        position: absolute;
+        z-index: 2; 
+        top: 160px;
+        right: 45px;
+    }
+
+    /* Add this to handle the scrolling of the dropdown list */
+    .subject-menu-scroll {
+        max-height: 310px;  /* Limits the height */
+        overflow-y: auto;   /* Makes it scrollable vertically */
+        overflow-x: hidden; /* Hides horizontal scrollbar */
+        padding-left:0px;
+    }
+
+    /* Optional: Styles the scrollbar to look cleaner (Webkit browsers) */
+    .subject-menu-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+    .subject-menu-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    .subject-menu-scroll::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 3px;
+    }
+    .filter-group{
+        display: flex;
+    }
+    .filter-label{
+        color: white;
+        margin-right: 10px;
+        font-family: 'Sub-title';
+        font-size: 14px;
+    }
+    .custom-dropdown-wrapper{
+        width: 155px;
+        background-color: rgba(0, 0, 0, 0);
+        margin-right: 20px;
+    }
+    .sort-trigger-btn{
+        width: 155px;
+        font-size: 14px; 
+        padding-left: 3px;
+        background-color: rgba(0, 0, 0, 0);
+        color: white;
+        font-family: 'Sub-title';
+        display: flex;
+        align-items: left;
+        border-bottom: 1px solid white;
+        border-top: none;
+        border-left: 0px solid white;
+        border-right: none;
+        cursor: pointer;
+    }
+    .dropdown-item{
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 14px; 
+        line-height: 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        background-color: rgba(0, 0, 0, 0.921);
+        cursor: pointer;
+    }
+    .reset-btn{
+        background-color: transparent;
+        border: none;
+        color: #58d8f8;
+        font-family: 'title';
+        font-size: 17px;
+        padding: 0px 15px;
+        cursor: pointer;
+        position: absolute;
+        top: -25px;
+        right: 513px;
+        z-index: 2;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .reset-btn:hover{
+        color:  #58d8f8;
+    }
+    .detail-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #000000eb;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        padding: 0 5% 0 5%;
+    }
+    .detail-overlay h2 {
+        color: white;
+        font-size: 24px;
+        text-align: center;
+    }
+    .zine-details-card{
+        width: auto;
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        border: #ffffff 1px solid;
+        margin-top: 10px;
+    }
+    .overlay-img{
+        height: 100%;
+        object-fit: cover;
+        max-width: 450px;
+        display: none;
+    }
+    .zine-meta-container{
+        background-color: rgb(0, 0, 0);
+        width: auto;
+        height: 100%;
+        padding: 5% 6% 5% 6%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .meta-card{
+        
+    }
+    .overlay-title{
+        color: white;
+        font-size: 25px;
+        width: 100%;
+        text-align: center;
+        font-family: 'sub-Title';
+        letter-spacing: .75px;
+        margin-bottom: 30px;
+    }
+    .overlay-data{
+        color: white;
+        font-size: 17px;
+        width: 100%;
+        font-family: 'Sub-title';
+        letter-spacing: .5px;
+        margin-bottom: 10px;
+    }
+    strong{
+        color: #58d8f8;
+        margin-bottom: 2px;
+    }
+    .read-btn {
+        background-color: transparent;
+        border-top: 2px solid white;
+        border-bottom: 2px solid white;
+        border-left: none ;
+        border-right: none;
+        color: #58d8f8;;
+        font-family: 'Sub-title';
+        font-size: 17px;
+        padding: 8px 10px;
+        cursor: pointer;
+        transition: all .5s ease-out;
+        margin-top: 30px;
+        letter-spacing: 1.75px;
+        text-transform: uppercase;
+    }
+    .read-btn:hover {
+        color: white;
+        border-top: 2px solid #58d8f8;
+        border-bottom: 2px solid #58d8f8;
+    }
+    .close-overlay {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: 1px solid #ffffff;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 18px;
+        padding: 4px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: .5px;
+    }
+    .overlay-nav-bar{
+        margin-top: 40px;
+    }
+    .nav-arrow-btn{
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 20px;
+        padding: 6px 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .nav-counter{
+        margin-left: 25px;
+        margin-right: 25px;
+        font-family: 'Sub-title';
+        font-size: 20px;
+        color: white;
+    }
+    .arrows{
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1000px){
+    .zines-div {
+        padding: 0px 0px 0 0px;
+        width: 100%;
+        border-radius: 5px;
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zines-title {
+        font-size: 67px;
+        line-height: 80px;
+        font-weight: bold;
+        color: #ffffff;
+        font-family: 'Title';
+        letter-spacing: 4px;
+        margin-left: 60px;
+        margin-top: 30px;
+        position: relative;
+        z-index: 1;
+        text-transform: uppercase;
+    }
+    .zine-nav-container{
+        margin-top: -5px;
+        margin-left: 30px;
+    }
+    .zine-page-num{
+        position: fixed;
+        right: 62px;
+        z-index: 0;
+        top: 0px;
+        color: rgba(52, 52, 52, 0.384);
+        font-family: 'title';
+        font-size: 150px;
+        line-height: 155px;
+    }
+    .zine-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 255, 255, 0.85);
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zine-container {
+        position: relative;
+        z-index: 1;
+    }
+    /* Container for the grid */
+    .zine-grid {
+        display: grid;
+        /* This creates exactly 4 equal columns */
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 60px; /* Space between grid items */
+        padding-right: 55px;
+        padding-left: 55px;
+        padding-top: 120px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
+
+    /* Individual Card Style */
+    .zine-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centers title relative to image */
+        text-align: center;
+    }
+
+    /* Image Wrapper (optional, good for hover effects later) */
+    .zine-image-wrapper {
+        width: 100%;
+        margin-bottom: 1rem;
+        overflow: hidden; /* clean edges if you add border-radius */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        transition: transform 0.2s ease;
+    }
+
+    /* The Image itself */
+    .zine-img {
+        width: 100%;
+        max-width: 500px;
+        height: auto; /* Maintains aspect ratio */
+        display: block; /* Removes weird bottom whitespace in some browsers */
+        aspect-ratio: 1 / 1.4; /* Optional: Forces uniform height if images vary wildly */
+        object-fit: contain; /* Ensures image fills the aspect ratio without stretching */
+        margin-bottom: 3px;
+    }
+
+    /* Title Styling */
+    .zine-card-title {
+        font-size: 15px;
+        line-height: 22px;
+        margin: 0;
+        color: #ffffff; /* Dark grey, change to match your theme */
+        font-weight: 600;
+        text-transform: uppercase;
+        font-family: 'Sub-title';
+        width: 100%;
+    }
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        padding: 40px 0px 80px 0;
+    }
+    .prev-next {
+        background: transparent;
+        border: 1px solid #ffffff00;;
+        color: #ffffff;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        font-family: 'Sub-title';
+        text-transform: uppercase;
+        font-size: 25px;
+        margin: 0 20px 0 20px;
+        letter-spacing: 1px;
+    }
+    /* 1. Add position: relative to your EXISTING .page-btn class 
+    so the line knows where to sit. */
+    .page-btn {
+        position: relative; 
+        font-size: 16px;
+        margin: 0 4px;
+        background-color: #ffffff;
+        border: none;
+        padding: 5px 10px; 
+        cursor: pointer;
+    }
+
+    /* 2. Create the floating line for the active state */
+    .page-btn.active::after {
+        content: "";
+        position: absolute;
+        
+        /* Dimensions of the line */
+        height: 8px;       /* Thickness of the line */
+        width: 100%;       /* Matches the width of the number */
+        background: rgb(255, 255, 255); /* The color of the line */
+
+        /* Positioning - The Gap */
+        left: 0;
+        bottom: -20px;     /* CHANGE THIS VALUE to increase/decrease the gap */
+    }
+    /* Keep your existing .filter-container exactly as is */
+    .filter-container {
+        display: flex;
+        justify-content: left;
+        align-items: start;
+        position: absolute;
+        z-index: 2; 
+        top: 160px;
+        right: 52px;
+    }
+
+    /* Add this to handle the scrolling of the dropdown list */
+    .subject-menu-scroll {
+        max-height: 310px;  /* Limits the height */
+        overflow-y: auto;   /* Makes it scrollable vertically */
+        overflow-x: hidden; /* Hides horizontal scrollbar */
+        padding-left:0px;
+    }
+
+    /* Optional: Styles the scrollbar to look cleaner (Webkit browsers) */
+    .subject-menu-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+    .subject-menu-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    .subject-menu-scroll::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 3px;
+    }
+    .filter-group{
+        display: flex;
+    }
+    .filter-label{
+        color: white;
+        margin-right: 10px;
+        font-family: 'Sub-title';
+        font-size: 14px;
+    }
+    .custom-dropdown-wrapper{
+        width: 155px;
+        background-color: rgba(0, 0, 0, 0);
+        margin-right: 20px;
+    }
+    .sort-trigger-btn{
+        width: 155px;
+        font-size: 14px; 
+        padding-left: 3px;
+        background-color: rgba(0, 0, 0, 0);
+        color: white;
+        font-family: 'Sub-title';
+        display: flex;
+        align-items: left;
+        border-bottom: 1px solid white;
+        border-top: none;
+        border-left: 0px solid white;
+        border-right: none;
+        cursor: pointer;
+    }
+    .dropdown-item{
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 14px; 
+        line-height: 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        background-color: rgba(0, 0, 0, 0.921);
+        cursor: pointer;
+    }
+    .reset-btn{
+        background-color: transparent;
+        border: none;
+        color: #58d8f8;
+        font-family: 'title';
+        font-size: 17px;
+        padding: 0px 15px;
+        cursor: pointer;
+        position: absolute;
+        top: -25px;
+        right: 513px;
+        z-index: 2;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .reset-btn:hover{
+        color:  #58d8f8;
+    }
+    .detail-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #000000e7;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        padding: 0 0% 0 0%;
+    }
+    .detail-overlay h2 {
+        color: white;
+        font-size: 24px;
+        text-align: center;
+    }
+    .zine-details-card{
+        width: auto;
+        height: 83vh;
+        display: flex;
+        border: #ffffff 1px solid;
+        margin-top: 10px;
+        flex-direction: row;
+    }
+    .overlay-img{
+        height: 100%;
+        object-fit: cover;
+        max-width: 450px;
+        display: block;
+    }
+    .zine-meta-container{
+        background-color: rgb(0, 0, 0);
+        width: 55vw;
+        height: auto;
+        padding: 5% 6% 5% 6%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .meta-card{
+        
+    }
+    .overlay-title{
+        color: white;
+        font-size: 17px;
+        width: 100%;
+        text-align: center;
+        font-family: 'sub-Title';
+        letter-spacing: .75px;
+        margin-bottom: 30px;
+    }
+    .overlay-data{
+        color: white;
+        font-size: 15px;
+        width: 100%;
+        font-family: 'Sub-title';
+        letter-spacing: .5px;
+        margin-bottom: 6px;
+    }
+    strong{
+        color: #58d8f8;
+        margin-bottom: 2px;
+    }
+    .read-btn {
+        background-color: transparent;
+        border-top: 2px solid white;
+        border-bottom: 2px solid white;
+        border-left: none ;
+        border-right: none;
+        color: #58d8f8;;
+        font-family: 'Sub-title';
+        font-size: 15px;
+        padding: 8px 10px;
+        cursor: pointer;
+        transition: all .5s ease-out;
+        margin-top: 20px;
+        letter-spacing: 1.75px;
+        text-transform: uppercase;
+    }
+    .read-btn:hover {
+        color: white;
+        border-top: 2px solid #58d8f8;
+        border-bottom: 2px solid #58d8f8;
+    }
+    .close-overlay {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: 1px solid #ffffff;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 18px;
+        padding: 4px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: .5px;
+    }
+    .overlay-nav-bar{
+        margin-top: 20px;
+    }
+    .nav-arrow-btn{
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 17px;
+        padding: 6px 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .nav-counter{
+        margin-left: 25px;
+        margin-right: 25px;
+        font-family: 'Sub-title';
+        font-size: 17px;
+        color: white;
+    }
+    .arrows{
+        font-size: 17px;
+    }
+}
+
+
+@media (min-width: 1400px){
+    .zines-div {
+        padding: 0px 0px 0 0px;
+        width: 100%;
+        border-radius: 5px;
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zines-title {
+        font-size: 100px;
+        line-height: 110px;
+        font-weight: bold;
+        color: #ffffff;
+        font-family: 'Title';
+        letter-spacing: 4px;
+        margin-left: 80px;
+        margin-top: 30px;
+        position: relative;
+        z-index: 1;
+        text-transform: uppercase;
+    }
+    .zine-nav-container{
+        margin-top: -5px;
+        margin-left: 30px;
+    }
+    .zine-page-num{
+        position: fixed;
+        right: 77px;
+        z-index: 0;
+        top: 0px;
+        color: rgba(52, 52, 52, 0.384);
+        font-family: 'title';
+        font-size: 190px;
+        line-height: 190px;
+    }
+    .zine-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 255, 255, 0.85);
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zine-container {
+        position: relative;
+        z-index: 1;
+    }
+    /* Container for the grid */
+    .zine-grid {
+        display: grid;
+        /* This creates exactly 4 equal columns */
+        grid-template-columns: repeat(4, 1fr); 
+        gap: 60px; /* Space between grid items */
+        padding-right: 70px;
+        padding-left: 70px;
+        padding-top: 130px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
+
+    /* Individual Card Style */
+    .zine-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centers title relative to image */
+        text-align: center;
+    }
+
+    /* Image Wrapper (optional, good for hover effects later) */
+    .zine-image-wrapper {
+        width: 100%;
+        margin-bottom: 1rem;
+        overflow: hidden; /* clean edges if you add border-radius */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        transition: transform 0.2s ease;
+    }
+
+    /* The Image itself */
+    .zine-img {
+        width: 100%;
+        max-width: 500px;
+        height: auto; /* Maintains aspect ratio */
+        display: block; /* Removes weird bottom whitespace in some browsers */
+        aspect-ratio: 1 / 1.4; /* Optional: Forces uniform height if images vary wildly */
+        object-fit: contain; /* Ensures image fills the aspect ratio without stretching */
+        margin-bottom: 10px;
+    }
+
+    /* Title Styling */
+    .zine-card-title {
+        font-size: 16px;
+        line-height: 22px;
+        margin: 0;
+        color: #ffffff; /* Dark grey, change to match your theme */
+        font-weight: 600;
+        text-transform: uppercase;
+        font-family: 'Sub-title';
+        width: 100%;
+    }
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        padding: 80px 0px 100px 0;
+    }
+    .prev-next {
+        background: transparent;
+        border: 1px solid #ffffff00;;
+        color: #ffffff;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        font-family: 'Sub-title';
+        text-transform: uppercase;
+        font-size: 30px;
+        margin: 0 20px 0 20px;
+        letter-spacing: 1px;
+    }
+    /* 1. Add position: relative to your EXISTING .page-btn class 
+    so the line knows where to sit. */
+    .page-btn {
+        position: relative; 
+        font-size: 18px;
+        margin: 0 4px;
+        background-color: #ffffff;
+        border: none;
+        padding: 5px 10px; 
+        cursor: pointer;
+    }
+
+    /* 2. Create the floating line for the active state */
+    .page-btn.active::after {
+        content: "";
+        position: absolute;
+        
+        /* Dimensions of the line */
+        height: 8px;       /* Thickness of the line */
+        width: 100%;       /* Matches the width of the number */
+        background: rgb(255, 255, 255); /* The color of the line */
+
+        /* Positioning - The Gap */
+        left: 0;
+        bottom: -20px;     /* CHANGE THIS VALUE to increase/decrease the gap */
+    }
+    /* Keep your existing .filter-container exactly as is */
+    .filter-container {
+        display: flex;
+        justify-content: left;
+        align-items: start;
+        position: absolute;
+        z-index: 2; 
+        top: 190px;
+        right: 65px;
+    }
+
+    /* Add this to handle the scrolling of the dropdown list */
+    .subject-menu-scroll {
+        max-height: 310px;  /* Limits the height */
+        overflow-y: auto;   /* Makes it scrollable vertically */
+        overflow-x: hidden; /* Hides horizontal scrollbar */
+        padding-left:0px;
+    }
+
+    /* Optional: Styles the scrollbar to look cleaner (Webkit browsers) */
+    .subject-menu-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+    .subject-menu-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    .subject-menu-scroll::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 3px;
+    }
+    .filter-group{
+        display: flex;
+    }
+    .filter-label{
+        color: white;
+        margin-right: 10px;
+        font-family: 'Sub-title';
+        font-size: 17px;
+    }
+    .custom-dropdown-wrapper{
+        width: 180px;
+        background-color: rgba(0, 0, 0, 0);
+        margin-right: 20px;
+    }
+    .sort-trigger-btn{
+        width: 180px;
+        font-size: 17px; 
+        padding-left: 3px;
+        background-color: rgba(0, 0, 0, 0);
+        color: white;
+        font-family: 'Sub-title';
+        display: flex;
+        align-items: left;
+        border-bottom: 1px solid white;
+        border-top: none;
+        border-left: 0px solid white;
+        border-right: none;
+        cursor: pointer;
+    }
+    .dropdown-item{
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 18px; 
+        line-height: 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        background-color: rgba(0, 0, 0, 0.921);
+        cursor: pointer;
+    }
+    .reset-btn{
+        background-color: transparent;
+        border: none;
+        color: #58d8f8;
+        font-family: 'title';
+        font-size: 22px;
+        padding: 0px 15px;
+        cursor: pointer;
+        position: absolute;
+        top: -36px;
+        right: 595px;
+        z-index: 2;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .reset-btn:hover{
+        color:  #58d8f8;
+    }
+    .detail-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #000000e7;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    .detail-overlay h2 {
+        color: white;
+        font-size: 24px;
+        text-align: center;
+    }
+    .zine-details-card{
+        width: auto;
+        height: 80vh;
+        display: flex;
+        border: #ffffff 1px solid;
+        margin-top: 10px;
+    }
+    .overlay-img{
+        height: 100%;
+        object-fit: cover;
+        max-width: 500px;
+    }
+    .zine-meta-container{
+        background-color: rgb(0, 0, 0);
+        width: 55vw;
+        padding: 3% 7% 3% 7%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .meta-card{
+        
+    }
+    .overlay-title{
+        color: white;
+        font-size: 18px;
+        width: 100%;
+        text-align: center;
+        font-family: 'sub-Title';
+        letter-spacing: .75px;
+        margin-bottom: 30px;
+    }
+    .overlay-data{
+        color: white;
+        font-size: 16px;
+        width: 100%;
+        font-family: 'Sub-title';
+        letter-spacing: .5px;
+        margin-bottom: 8px;
+    }
+    strong{
+        color: #58d8f8;
+        margin-bottom: 2px;
+    }
+    .read-btn {
+        background-color: transparent;
+        border-top: 2px solid white;
+        border-bottom: 2px solid white;
+        border-left: none ;
+        border-right: none;
+        color: #58d8f8;;
+        font-family: 'Sub-title';
+        font-size: 16px;
+        padding: 8px 10px;
+        cursor: pointer;
+        transition: all .5s ease-out;
+        margin-top: 20px;
+        letter-spacing: 1.75px;
+        text-transform: uppercase;
+    }
+    .read-btn:hover {
+        color: white;
+        border-top: 2px solid #58d8f8;
+        border-bottom: 2px solid #58d8f8;
+    }
+    .close-overlay {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: 1px solid #ffffff;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 18px;
+        padding: 4px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: .5px;
+    }
+    .overlay-nav-bar{
+        margin-top: 30px;
+    }
+    .nav-arrow-btn{
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 19px;
+        padding: 6px 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .nav-counter{
+        margin-left: 25px;
+        margin-right: 25px;
+        font-family: 'Sub-title';
+        font-size: 19px;
+        color: white;
+    }
+    .arrows{
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1900px){
+    .zines-div {
+        padding: 0px 0px 0 0px;
+        width: 100%;
+        border-radius: 5px;
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zine-title-container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+    }
+    
+    .zines-title {
+        font-size: 130px;
+        line-height: 140px;
+        font-weight: bold;
+        color: #ffffff;
+        font-family: 'Title';
+        letter-spacing: 4px;
+        margin-left: 77px;
+        margin-top: 40px;
+        position: relative;
+        z-index: 1;
+        text-transform: uppercase;
+    }
+    .zine-page-num{
+        position: fixed;
+        right: 77px;
+        z-index: 0;
+        top: 0px;
+        color: rgba(52, 52, 52, 0.384);
+        font-family: 'title';
+        font-size: 235px;
+        line-height: 235px;
+    }
+    .zine-nav-container{
+        margin-top: -5px;
+        margin-left: 30px;
+    }
+    
+    .zine-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 255, 255, 0.85);
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+        height: 100vh;
+        width: 100vw;
+    }
+    .zine-container {
+        position: relative;
+        z-index: 1;
+    }
+    /* Container for the grid */
+    .zine-grid {
+        display: grid;
+        /* This creates exactly 4 equal columns */
+        grid-template-columns: repeat(4, 1fr); 
+        gap: 90px; /* Space between grid items */
+        padding-right: 70px;
+        padding-left: 70px;
+        padding-top: 140px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
+
+    /* Individual Card Style */
+    .zine-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centers title relative to image */
+        text-align: center;
+    }
+
+    /* Image Wrapper (optional, good for hover effects later) */
+    .zine-image-wrapper {
+        width: 100%;
+        margin-bottom: 1rem;
+        overflow: hidden; /* clean edges if you add border-radius */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        transition: transform 0.2s ease;
+    }
+
+    /* The Image itself */
+    .zine-img {
+        width: 100%;
+        max-width: 500px;
+        height: auto; /* Maintains aspect ratio */
+        display: block; /* Removes weird bottom whitespace in some browsers */
+        aspect-ratio: 1 / 1.4; /* Optional: Forces uniform height if images vary wildly */
+        object-fit: contain; /* Ensures image fills the aspect ratio without stretching */
+        margin-bottom: 10px;
+    }
+
+
+    /* Title Styling */
+    .zine-card-title {
+        font-size: 19px;
+        line-height: 26px;
+        margin: 0;
+        color: #ffffff; /* Dark grey, change to match your theme */
+        font-weight: 600;
+        text-transform: uppercase;
+        font-family: 'Sub-title';
+        width: 340px;
+    }
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        padding: 80px 0px 100px 0;
+    }
+    .prev-next {
+        background: transparent;
+        border: 1px solid #ffffff00;;
+        color: #ffffff;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        font-family: 'Sub-title';
+        text-transform: uppercase;
+        font-size: 30px;
+        margin: 0 20px 0 20px;
+        letter-spacing: 1px;
+    }
+    /* 1. Add position: relative to your EXISTING .page-btn class 
+    so the line knows where to sit. */
+    .page-btn {
+        position: relative; 
+        font-size: 18px;
+        margin: 0 4px;
+        background-color: #ffffff;
+        border: none;
+        padding: 5px 10px; 
+        cursor: pointer;
+    }
+
+    /* 2. Create the floating line for the active state */
+    .page-btn.active::after {
+        content: "";
+        position: absolute;
+        
+        /* Dimensions of the line */
+        height: 8px;       /* Thickness of the line */
+        width: 100%;       /* Matches the width of the number */
+        background: rgb(255, 255, 255); /* The color of the line */
+
+        /* Positioning - The Gap */
+        left: 0;
+        bottom: -20px;     /* CHANGE THIS VALUE to increase/decrease the gap */
+    }
+    /* Keep your existing .filter-container exactly as is */
+    .filter-container {
+        display: flex;
+        justify-content: left;
+        align-items: start;
+        position: absolute;
+        z-index: 2; 
+        top: 240px;
+        right: 3%;
+    }
+
+    /* Add this to handle the scrolling of the dropdown list */
+    .subject-menu-scroll {
+        max-height: 310px;  /* Limits the height */
+        overflow-y: auto;   /* Makes it scrollable vertically */
+        overflow-x: hidden; /* Hides horizontal scrollbar */
+        padding-left:0px;
+    }
+
+    /* Optional: Styles the scrollbar to look cleaner (Webkit browsers) */
+    .subject-menu-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+    .subject-menu-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    .subject-menu-scroll::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 3px;
+    }
+    .filter-group{
+        display: flex;
+    }
+    .filter-label{
+        color: white;
+        margin-right: 10px;
+        font-family: 'Sub-title';
+        font-size: 18px;
+    }
+    .custom-dropdown-wrapper{
+        width: 200px;
+        background-color: rgba(0, 0, 0, 0);
+        margin-right: 20px;
+    }
+    .sort-trigger-btn{
+        width: 185px;
+        font-size: 18px; 
+        padding-left: 3px;
+        background-color: rgba(0, 0, 0, 0);
+        color: white;
+        font-family: 'Sub-title';
+        display: flex;
+        align-items: left;
+        border-bottom: 1px solid white;
+        border-top: none;
+        border-left: 0px solid white;
+        border-right: none;
+        cursor: pointer;
+    }
+    .dropdown-item{
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 18px; 
+        line-height: 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        background-color: rgba(0, 0, 0, 0.921);
+        cursor: pointer;
+    }
+    .reset-btn{
+        background-color: transparent;
+        border: none;
+        color: #58d8f8;
+        font-family: 'title';
+        font-size: 25px;
+        padding: 0px 15px;
+        cursor: pointer;
+        position: absolute;
+        top: -40px;
+        right: 644px;
+        z-index: 2;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .reset-btn:hover{
+        color:  #58d8f8;
+    }
+    .detail-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #000000e7;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    .detail-overlay h2 {
+        color: white;
+        font-size: 24px;
+        text-align: center;
+    }
+    .zine-details-card{
+        width: auto;
+        height: 75vh;
+        display: flex;
+        border: #ffffff 1px solid;
+        margin-top: 10px;
+    }
+    .overlay-img{
+        height: 100%;
+        object-fit: cover;
+        max-width: 500px;
+    }
+    .zine-meta-container{
+        background-color: rgb(0, 0, 0);
+        width: 48vw;
+        padding: 3% 7% 3% 7%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .meta-card{
+        
+    }
+    .overlay-title{
+        color: white;
+        font-size: 24px;
+        width: 100%;
+        text-align: center;
+        font-family: 'sub-Title';
+        letter-spacing: .75px;
+        margin-bottom: 30px;
+    }
+    .overlay-data{
+        color: white;
+        font-size: 17px;
+        width: 100%;
+        font-family: 'Sub-title';
+        letter-spacing: .5px;
+        margin-bottom: 12px;
+    }
+    strong{
+        color: #58d8f8;
+        margin-bottom: 2px;
+    }
+    .read-btn {
+        background-color: transparent;
+        border-top: 2px solid white;
+        border-bottom: 2px solid white;
+        border-left: none ;
+        border-right: none;
+        color: #58d8f8;;
+        font-family: 'Sub-title';
+        font-size: 18px;
+        padding: 10px 12px;
+        cursor: pointer;
+        transition: all .5s ease-out;
+        margin-top: 25px;
+        letter-spacing: 1.75px;
+        text-transform: uppercase;
+    }
+    .read-btn:hover {
+        color: white;
+        border-top: 2px solid #58d8f8;
+        border-bottom: 2px solid #58d8f8;
+    }
+    .close-overlay {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background-color: transparent;
+        border: 1px solid #ffffff;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 20px;
+        padding: 6px 11px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: .5px;
+    }
+    .overlay-nav-bar{
+        margin-top: 30px;
+    }
+    .nav-arrow-btn{
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-family: 'Sub-title';
+        font-size: 22px;
+        padding: 6px 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .nav-counter{
+        margin-left: 25px;
+        margin-right: 25px;
+        font-family: 'Sub-title';
+        font-size: 22px;
+        color: white;
+    }
+    .arrows{
+        font-size: 24px;
+    }
+}
